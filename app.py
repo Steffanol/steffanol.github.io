@@ -1,10 +1,13 @@
 from flask import Flask, render_template, jsonify, request
 from datetime import datetime
+import pytz
 import json
 import os
 
 app = Flask(__name__)
 DATA_FILE = 'data.json'
+
+WIB = pytz.timezone('Asia/Jakarta')
 
 def baca_data():
     if not os.path.exists(DATA_FILE):
@@ -71,7 +74,7 @@ def konfirmasi_loadcell():
     berat = req_data.get("berat", 0) if req_data else 0
 
     if berat > 0:
-        waktu_sekarang = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        waktu_sekarang = datetime.now(WIB).strftime("%Y-%m-%d %H:%M:%S")
         jenis = data.get("pending_jenis", "Paket")
 
         item_baru = {
