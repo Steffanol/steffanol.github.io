@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Paket - Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth; /* Membuat efek scroll menjadi mulus */
+        }
+
+        body {
+            background-color: #1e1611;
+            color: #f5f0eb;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #3b2e25;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        /* Navbar */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #524134;
+            padding-bottom: 15px;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            width: 24px;
+            height: 24px;
+            background-color: #d4a373;
+            border-radius: 5px;
+        }
+
+        nav h1 {
+            font-size: 24px;
+            color: #f5f0eb;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        nav ul li a {
+            color: #c4b5a9;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        nav ul li a.active {
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        /* Layout Hero Section */
+        .hero-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 35px;
+            background-color: #2b211a;
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid #47392e;
+        }
+
+        .hero-text {
+            flex: 1;
+        }
+
+        .hero-title {
+            font-size: 36px;
+            margin-bottom: 15px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .hero-desc {
+            color: #c4b5a9;
+            font-size: 16px;
+        }
+
+        .paket-image-container {
+            width: 100%;
+            max-width: 320px;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px solid #524134;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .paket-image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+
+        @media (max-width: 768px) {
+            .hero-section {
+                flex-direction: column-reverse;
+                align-items: flex-start;
+                gap: 20px;
+            }
+            .paket-image-container {
+                max-width: 100%;
+            }
+        }
+
+        /* Grid Cards */
+        .grid-cards {
+            display: block;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background-color: #2b211a;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #47392e;
+            width: 31%;
+            display: inline-block;
+            vertical-align: top;
+            margin-right: 2%;
+        }
+
+        .card:last-child {
+            margin-right: 0;
+        }
+
+        @media (max-width: 768px) {
+            .card {
+                width: 100%;
+                display: block;
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+        }
+
+        .card h3 {
+            font-size: 14px;
+            color: #c4b5a9;
+            margin-bottom: 15px;
+        }
+
+        .jam-digital {
+            font-size: 32px;
+            font-weight: bold;
+            color: #4cc9f0;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .status-text, .display-text {
+            font-size: 16px;
+            color: #ffffff;
+            margin-bottom: 15px;
+        }
+
+        .btn-buka {
+            background-color: #d4a373;
+            color: #1e1611;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.2s;
+        }
+
+        .btn-buka:hover {
+            background-color: #b58253;
+            color: #ffffff;
+        }
+
+        /* Tabel Riwayat */
+        .riwayat-section {
+            background-color: #2b211a;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #47392e;
+        }
+
+        .riwayat-section h3 {
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #47392e;
+            font-size: 14px;
+            text-align: left;
+        }
+
+        th {
+            color: #c4b5a9;
+        }
+
+        .badge-success {
+            background-color: #2a9d8f;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <nav>
+            <div class="logo-area">
+                <div class="logo-icon"></div>
+                <h1>Dashboard Monitoring</h1>
+            </div>
+            <ul>
+                <li><a href="/" class="active">Home</a></li>
+                <li><a href="#riwayat-paket">Riwayat Paket</a></li>
+            </ul>
+        </nav>
+
+        <div class="main-content">
+            <div class="hero-section">
+                <div class="hero-text">
+                    <h2 class="hero-title">Sistem Monitoring<br>Paket & Surat</h2>
+                    <p class="hero-desc">Pantau kedatangan paket dan kendalikan kunci pintu pos secara otomatis.</p>
+                </div>
+                
+                <div class="paket-image-container">
+                    <img src="{{ url_for('static', filename='Fotopaket.png') }}" alt="Foto Paket Masuk">
+                </div>
+            </div>
+        </div>
+
+        <div class="grid-cards">
+            <div class="card">
+                <h3> Waktu Realtime</h3>
+                <div class="jam-digital" id="jam">00:00:00</div>
+            </div><div class="card">
+                <h3> Status Paket</h3>
+                <div class="status-text" id="status-paket">Memuat data...</div>
+                <button class="btn-buka" onclick="pemicuBukaPos()"> Buka Pintu Pos</button>
+            </div><div class="card">
+                <h3> Display Paket Masuk</h3>
+                <div class="display-text" id="display-paket">Menunggu alat...</div>
+            </div>
+        </div>
+
+        <div id="riwayat-paket" class="riwayat-section">
+            <h3> Riwayat Paket Masuk</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Waktu Datang</th>
+                        <th>Jenis</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="tabel-riwayat"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function updateJam() {
+            const sekarang = new Date();
+            document.getElementById('jam').textContent = 
+                String(sekarang.getHours()).padStart(2, '0') + ":" +
+                String(sekarang.getMinutes()).padStart(2, '0') + ":" +
+                String(sekarang.getSeconds()).padStart(2, '0');
+        }
+        setInterval(updateJam, 1000);
+        updateJam();
+
+        function fetchData() {
+            fetch('/api/data')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('status-paket').textContent = data.status_paket;
+                    document.getElementById('display-paket').textContent = data.display_paket;
+
+                    const tbody = document.getElementById('tabel-riwayat');
+                    tbody.innerHTML = ''; 
+                    
+                    const riwayatTerbalik = [...data.riwayat].reverse();
+                    riwayatTerbalik.forEach(item => {
+                        tbody.innerHTML += `<tr>
+                            <td>${item.no}</td>
+                            <td>${item.waktu}</td>
+                            <td>${item.jenis}</td>
+                            <td><span class="badge-success">${item.status}</span></td>
+                        </tr>`;
+                    });
+                })
+                .catch(err => console.error("Gagal sinkronisasi data:", err));
+        }
+
+        function pemicuBukaPos() {
+            fetch('/api/buka-pos', { method: 'POST' })
+                .then(res => res.json())
+                .then(data => {
+                    alert(data.message);
+                });
+        }
+
+        setInterval(fetchData, 2000);
+        fetchData(); 
+    </script>
+</body>
+</html>
